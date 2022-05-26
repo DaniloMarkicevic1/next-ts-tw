@@ -17,7 +17,6 @@ const AllEmployees: React.FC = () => {
         await axiosInstance.post(`users/admins/${id}`);
         mutate();
     };
-    console.log(data);
     if (!data) return null;
     if (error) return null;
     const users: Employee[] = data.employees;

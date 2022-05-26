@@ -6,7 +6,7 @@ import LogoImage from '../../public/assets/images/LogoImage.png';
 import axiosInstance from '../../services/axiosInstance';
 
 const Login = () => {
-    const { user, setIsloggedIn } = useContextHook();
+    const { user, setIsLoggedIn } = useContextHook();
 
     const loginFunction = async (data: any) => {
         const res = await axiosInstance.post(
@@ -17,9 +17,10 @@ const Login = () => {
             { withCredentials: true }
         );
         if (res.status === 200) {
-            setIsloggedIn(true);
+            setIsLoggedIn(true);
         }
     };
+
     return (
         <section className="grid">
             {user.email === '' ? (

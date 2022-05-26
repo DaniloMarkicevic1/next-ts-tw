@@ -12,12 +12,12 @@ interface Props {
 }
 
 const Navbar: React.FC<Props> = ({ setOpen, open }) => {
-    const { user, setUser, setIsloggedIn } = useContextHook();
+    const { user, setUser, setIsLoggedIn } = useContextHook();
     const router = useRouter();
     const handleLogout = async () => {
         const res = await axiosInstance.post(`/logout`);
         window.localStorage.removeItem('token');
-        setIsloggedIn(false);
+        setIsLoggedIn(false);
         router.push('/');
         setUser({
             id: 0,
@@ -29,7 +29,6 @@ const Navbar: React.FC<Props> = ({ setOpen, open }) => {
             seniority: '',
             plan: '',
         });
-        console.log(res);
     };
 
     return (

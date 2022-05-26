@@ -1,10 +1,10 @@
-import { NextPage } from "next";
-import Head from "next/head";
-import useSWR from "swr";
-import Employees from "../../components/pm/Employees";
-import { useFilterContextHook } from "../../context/filter-context";
-import { EmployeesRes } from "../../models/Employees";
-import { fetcher } from "../../services/fetcher";
+import { NextPage } from 'next';
+import Head from 'next/head';
+import useSWR from 'swr';
+import Employees from '../../components/pm/Employees';
+import { useFilterContextHook } from '../../context/filter-context';
+import { EmployeesRes } from '../../models/Employees';
+import { fetcher } from '../../services/fetcher';
 
 const AllEmployeesPage: NextPage = () => {
     const {
@@ -35,6 +35,7 @@ const AllEmployeesPage: NextPage = () => {
                 : `pm/employees`,
         fetcher
     );
+
     return (
         <>
             <Head>

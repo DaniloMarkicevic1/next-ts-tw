@@ -1,20 +1,20 @@
-import { Reducer, useReducer } from "react";
-import { ActionType, FormInterface, ReducerState } from "../../../models/Form";
-import axiosInstance from "../../../services/axiosInstance";
-import SelectInput from "./SelectInput";
+import { Reducer, useReducer } from 'react';
+import { ActionType, FormInterface, ReducerState } from '../../../models/Form';
+import axiosInstance from '../../../services/axiosInstance';
+import SelectInput from './SelectInput';
 
 const seniorities = [
-    { name: "intern", id: 0 },
-    { name: "junior", id: 1 },
-    { name: "medior", id: 2 },
-    { name: "senior", id: 3 },
+    { name: 'intern', id: 0 },
+    { name: 'junior', id: 1 },
+    { name: 'medior', id: 2 },
+    { name: 'senior', id: 3 },
 ];
 
 const initialState = {
-    city: "",
-    project: "",
-    technology: "",
-    seniority: "",
+    city: '',
+    project: '',
+    technology: '',
+    seniority: '',
 };
 
 type Submit = {
@@ -27,7 +27,7 @@ type Submit = {
 
 const reducer: Reducer<ReducerState, ActionType> = (state, action) => {
     switch (action.type) {
-        case "update_input":
+        case 'update_input':
             return { ...state, [action.key]: action.payload };
 
         default:
@@ -52,16 +52,16 @@ const Forms: React.FC<FormInterface> = ({
         city,
         project,
     }: Submit) => {
-        seniority !== "" &&
+        seniority !== '' &&
             (await axiosInstance.patch(`users/seniority/${userId}`, {
                 seniority,
             }));
 
-        city !== "" &&
+        city !== '' &&
             (await axiosInstance.post(`users/${userId}/city/${city}`));
 
-        userRole !== "project_manager"
-            ? project !== "" &&
+        userRole !== 'project_manager'
+            ? project !== '' &&
               (await axiosInstance.post(`users/${userId}/project/${project}`))
             : await axiosInstance.post(
                   `projects/${project}/project_manager/${userId}`
@@ -77,7 +77,6 @@ const Forms: React.FC<FormInterface> = ({
         await axiosInstance.post(`users/${userId}/technology/${technology}`);
         mutate();
     };
-    console.log(state);
     return (
         <section className="grid grid-cols-6 gap-x-3">
             <form

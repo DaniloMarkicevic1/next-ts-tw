@@ -1,12 +1,12 @@
-import { ArrowLeftIcon } from "@heroicons/react/outline";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import useSWR from "swr";
-import { User } from "../../models/Employees";
-import { ProjectType } from "../../models/Projects";
-import { fetcher } from "../../services/fetcher";
-import PageTitle from "../PageTitle";
-import EditProjectUsers from "./EditProjectUsers";
+import { ArrowLeftIcon } from '@heroicons/react/outline';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import useSWR from 'swr';
+import { User } from '../../models/Employees';
+import { ProjectType } from '../../models/Projects';
+import { fetcher } from '../../services/fetcher';
+import PageTitle from '../PageTitle';
+import EditProjectUsers from './EditProjectUsers';
 
 interface Project extends ProjectType {
     projectManager: User;
@@ -28,7 +28,6 @@ const EditProject = () => {
 
         fetcher
     );
-    console.log(error);
     if (!project) return <p>Loading</p>;
     if (!users) return <p>Loading</p>;
     const projectData: Project = project.project;
@@ -36,7 +35,7 @@ const EditProject = () => {
     return (
         <>
             <PageTitle title={`Edit Project: ${projectData.name}`} />
-            <Link href={"/admin/projects"}>
+            <Link href={'/admin/projects'}>
                 <a className="flex text-gray-300 items-center justify-self-start max-w-fit bg-gray-800 rounded-lg py-2 px-3 hover:bg-opacity-75">
                     <ArrowLeftIcon className="w-4 mr-3 h-4" />
                     Go Back
@@ -44,7 +43,7 @@ const EditProject = () => {
             </Link>
 
             <p>
-                Project Manager: {projectData.projectManager?.firstName}{" "}
+                Project Manager: {projectData.projectManager?.firstName}{' '}
                 {projectData.projectManager?.lastName}
             </p>
 

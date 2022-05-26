@@ -18,6 +18,8 @@ interface ContextInferface {
     modalDataIsLoaded: boolean;
     setModalDataIsLoaded: Dispatch<SetStateAction<boolean>>;
     user: User;
+    setUser: Dispatch<SetStateAction<User>>;
+    setIsLoggedIn: Dispatch<SetStateAction<boolean>>;
 }
 
 const defaultValue = {
@@ -27,6 +29,8 @@ const defaultValue = {
     setEmployeeModalOpen: () => {},
     setEmployeeId: () => {},
     setModalDataIsLoaded: () => {},
+    setIsLoggedIn: () => {},
+    setUser: () => {},
     user: {
         id: 0,
         firstName: '',
@@ -45,7 +49,7 @@ export const ContextProvider: React.FC<{ children: ReactNode }> = ({
     children,
 }) => {
     const router = useRouter();
-    const [isLoggedIn, setIsloggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [employeeModalOpen, setEmployeeModalOpen] = useState<boolean>(false);
     const [employeeId, setEmployeeId] = useState<number>();
     const [modalDataIsLoaded, setModalDataIsLoaded] = useState<boolean>(false);
@@ -63,12 +67,6 @@ export const ContextProvider: React.FC<{ children: ReactNode }> = ({
     const getUser = async () => {
         const res = await axiosInstance.get('/user');
         setUser(res.data.user);
-        if (user.role === 'admin') {
-            router.push(`admin/employees`);
-        }
-        if (user.role === 'project_manager') {
-            router.push(`pm/all-employees`);
-        }
     };
 
     useEffect(() => {
@@ -76,7 +74,6 @@ export const ContextProvider: React.FC<{ children: ReactNode }> = ({
     }, []);
 
     useEffect(() => {
-        // setIsloggedIn(true);
         if (localStorage.getItem('token')) {
             getUser();
         }
@@ -93,7 +90,7 @@ export const ContextProvider: React.FC<{ children: ReactNode }> = ({
                 setModalDataIsLoaded,
                 user,
                 setUser,
-                setIsloggedIn,
+                setIsLoggedIn,
             }}
         >
             {children}

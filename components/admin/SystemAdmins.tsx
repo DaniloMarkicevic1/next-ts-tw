@@ -1,10 +1,10 @@
-import { ThumbDownIcon } from "@heroicons/react/outline";
-import Link from "next/link";
-import useSWR from "swr";
-import { User } from "../../models/User";
-import axiosInstance from "../../services/axiosInstance";
-import { fetcher } from "../../services/fetcher";
-import PageTitle from "../PageTitle";
+import { ThumbDownIcon } from '@heroicons/react/outline';
+import Link from 'next/link';
+import useSWR from 'swr';
+import { User } from '../../models/User';
+import axiosInstance from '../../services/axiosInstance';
+import { fetcher } from '../../services/fetcher';
+import PageTitle from '../PageTitle';
 
 const SystemAdmins = () => {
     const { data, error, mutate } = useSWR(`users/admins`, fetcher);
@@ -15,7 +15,6 @@ const SystemAdmins = () => {
         await axiosInstance.put(`/users/admins/${id}`);
         mutate();
     };
-    console.log(adminsData);
     return (
         <>
             <PageTitle title="System Administrators:" />

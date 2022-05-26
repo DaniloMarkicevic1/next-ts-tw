@@ -1,12 +1,12 @@
-import useSWR from "swr";
+import useSWR from 'swr';
 
-import { Country } from "../../models/Countries";
-import axiosInstance from "../../services/axiosInstance";
-import { fetcher } from "../../services/fetcher";
-import DeleteButton from "../buttons/DeleteButton";
-import AddForm from "./AddForm";
-import ListElement from "./ListElement";
-import PageTitle from "../PageTitle";
+import { Country } from '../../models/Countries';
+import axiosInstance from '../../services/axiosInstance';
+import { fetcher } from '../../services/fetcher';
+import DeleteButton from '../buttons/DeleteButton';
+import AddForm from './AddForm';
+import ListElement from './ListElement';
+import PageTitle from '../PageTitle';
 
 const Countries = () => {
     const { data: countries, mutate } = useSWR(`/countries`, fetcher);
@@ -25,7 +25,6 @@ const Countries = () => {
     const countriesArray: Country[] = countries.countries.sort(
         (a: { id: number }, b: { id: number }) => a.id - b.id
     );
-    console.log(countriesArray);
     return (
         <>
             <PageTitle title="Countries:" />

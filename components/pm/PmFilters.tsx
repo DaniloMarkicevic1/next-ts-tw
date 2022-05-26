@@ -1,8 +1,8 @@
-import { Dispatch, SetStateAction } from "react";
-import useSWR from "swr";
-import { useFilterContextHook } from "../../context/filter-context";
-import { fetcher } from "../../services/fetcher";
-import Checkbox from "./Checkbox";
+import { Dispatch, SetStateAction } from 'react';
+import useSWR from 'swr';
+import { useFilterContextHook } from '../../context/filter-context';
+import { fetcher } from '../../services/fetcher';
+import Checkbox from './Checkbox';
 
 // Click on country, add ?country=SelectedValue, send fetch request,
 // Give data to Employees.tsx
@@ -18,10 +18,10 @@ const PmFilters: React.FC<{
     const { data: projectManagers } = useSWR(`/users/pm`, fetcher);
     const seniorities = {
         seniorities: [
-            { name: "Intern" },
-            { name: "Junior" },
-            { name: "Medior" },
-            { name: "Senior" },
+            { name: 'Intern' },
+            { name: 'Junior' },
+            { name: 'Medior' },
+            { name: 'Senior' },
         ],
     };
 
@@ -30,13 +30,12 @@ const PmFilters: React.FC<{
             id="filterBackdrop"
             onClick={(e) => {
                 const target = e.target as HTMLSelectElement;
-                console.log(target.id);
-                if (target.id === "filterBackdrop") {
+                if (target.id === 'filterBackdrop') {
                     setShowFilters(false);
                 }
             }}
             className={`backdrop z-50 rounded-lg absolute top-5 left-0 p-4 w-full h-10/12 text-gray-300 bg-black bg-opacity-80 ${
-                showFilters ? "opacity-100" : "opacity-0 pointer-events-none"
+                showFilters ? 'opacity-100' : 'opacity-0 pointer-events-none'
             } transition-all duration-500`}
         >
             <div>
@@ -52,9 +51,9 @@ const PmFilters: React.FC<{
                     onInput={(e) => {
                         const target = e.target as HTMLInputElement;
                         dispatch({
-                            type: "pick_filter",
+                            type: 'pick_filter',
                             payload: target.value,
-                            key: "name",
+                            key: 'name',
                         });
                     }}
                 />
@@ -77,13 +76,13 @@ const PmFilters: React.FC<{
                             name="Cities"
                             dataSet={cities.cities}
                         />
-                        <hr className="border-white" />{" "}
+                        <hr className="border-white" />{' '}
                         <Checkbox
                             label="seniority"
                             name="Seniorities"
                             dataSet={seniorities.seniorities}
                         />
-                        <hr className="border-white" />{" "}
+                        <hr className="border-white" />{' '}
                         <Checkbox
                             label="technology"
                             name="Technologies"
@@ -102,16 +101,16 @@ const PmFilters: React.FC<{
                             dataSet={projectManagers.project_managers}
                         />
                         <button
-                            className="bg-white rounded-lg p-2 hover:bg-opacity-50"
+                            className="bg-white rounded-lg p-2 hover:bg-opacity-50 text-gray-800"
                             onClick={() => {
-                                dispatch({ type: "reset" });
+                                dispatch({ type: 'reset' });
                             }}
                         >
-                            {" "}
+                            {' '}
                             Reset Filters
                         </button>
                     </section>
-                )}{" "}
+                )}{' '}
             </div>
         </section>
     );

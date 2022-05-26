@@ -1,12 +1,12 @@
-import { useRouter } from "next/router";
-import useSWR from "swr";
-import { fetcher } from "../../../services/fetcher";
+import { useRouter } from 'next/router';
+import useSWR from 'swr';
+import { fetcher } from '../../../services/fetcher';
 
-import { Employee } from "../../../models/Employees";
+import { Employee } from '../../../models/Employees';
 
-import PageTitle from "../../PageTitle";
-import Forms from "./Forms";
-import User from "./User";
+import PageTitle from '../../PageTitle';
+import Forms from './Forms';
+import User from './User';
 
 const EditUser = () => {
     const { query } = useRouter();
@@ -33,14 +33,11 @@ const EditUser = () => {
 
     const projectsArray = projects.projects;
     const technologiesArray = technologies.technologies;
-    console.log(cities);
-    console.log(projects);
-    console.log(technologies);
-    console.log(user);
+
     return (
         <>
             <PageTitle
-                title={`Edit ${user.role === "project_manager" ? "PM" : ""} ${
+                title={`Edit ${user.role === 'project_manager' ? 'PM' : ''} ${
                     user.firstName
                 } ${user.lastName}:`}
             />

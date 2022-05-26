@@ -1,8 +1,8 @@
-import { useEffect } from "react";
-import useSWR from "swr";
-import { useContextHook } from "../../context/context";
-import { fetcher } from "../../services/fetcher";
-import PmEditEmployee from "./PmEditEmployee";
+import { useEffect } from 'react';
+import useSWR from 'swr';
+import { useContextHook } from '../../context/context';
+import { fetcher } from '../../services/fetcher';
+import PmEditEmployee from './PmEditEmployee';
 
 const EmployeeModal: React.FC = () => {
     const {
@@ -20,7 +20,6 @@ const EmployeeModal: React.FC = () => {
         `pm/projects`,
         fetcher
     );
-    console.log(data);
     useEffect(() => {
         if (employeeModalOpen) {
             setModalDataIsLoaded && setModalDataIsLoaded(true);
@@ -35,13 +34,13 @@ const EmployeeModal: React.FC = () => {
         <div
             id="backdrop"
             onClick={(e: any) => {
-                if (e.target.id === "backdrop") {
+                if (e.target.id === 'backdrop') {
                     setEmployeeModalOpen && setEmployeeModalOpen(false);
                     setModalDataIsLoaded && setModalDataIsLoaded(false);
                 }
             }}
             className={`
-                ${modalDataIsLoaded ? "opacity-1 z-50" : "opacity-0 -z-20"}
+                ${modalDataIsLoaded ? 'opacity-1 z-50' : 'opacity-0 -z-20'}
                 transition-all
                 duration-300
                 absolute
