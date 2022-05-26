@@ -35,7 +35,6 @@ const Cities = () => {
             `countries/${countryId}/city/${cityId}`
         );
         mutate();
-        console.log(res);
     };
 
     if (!cities) return null;
