@@ -26,7 +26,7 @@ const Layout: React.FC<Props> = ({ children }) => {
                     {children}
                 </main>
             )}
-            {role === 'pm' && <EmployeeModal />}
+            {role === 'project_manager' && <EmployeeModal />}
         </>
     );
 };

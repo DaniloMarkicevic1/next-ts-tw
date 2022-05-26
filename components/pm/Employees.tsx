@@ -2,14 +2,11 @@ import {
     ArrowDownIcon,
     ChevronDownIcon,
     DownloadIcon,
-} from "@heroicons/react/outline";
-import { useState } from "react";
-import useSWR from "swr";
-import { useFilterContextHook } from "../../context/filter-context";
-import { Employee, EmployeesRes } from "../../models/Employees";
-import { fetcher } from "../../services/fetcher";
-import Card from "../Card";
-import PmFilters from "./PmFilters";
+} from '@heroicons/react/outline';
+import { useState } from 'react';
+import { Employee, EmployeesRes } from '../../models/Employees';
+import Card from '../Card';
+import PmFilters from './PmFilters';
 
 const Employees: React.FC<EmployeesRes> = ({ employeesRes }) => {
     const [showFilters, setShowFilters] = useState(false);
@@ -25,7 +22,7 @@ const Employees: React.FC<EmployeesRes> = ({ employeesRes }) => {
                     <p>Filters</p>
                     <ChevronDownIcon
                         className={`transition-all duration-150 w-5 h-5 ${
-                            showFilters && "rotate-180"
+                            showFilters && 'rotate-180'
                         }`}
                     />
                 </div>
