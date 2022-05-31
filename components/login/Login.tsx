@@ -31,10 +31,10 @@ const Login = () => {
     };
 
     return (
-        <section className="grid justify-items-center">
+        <section className="grid justify-items-center bg-gray-400 rounded-md p-3">
+            <Image alt="logo" src={LogoImage} className="scale-75" />
             {!isLoggedIn ? (
                 <>
-                    <Image alt="logo" src={LogoImage} className="scale-75" />
                     <GoogleLogin
                         className="w-full"
                         buttonText="SignIn"
