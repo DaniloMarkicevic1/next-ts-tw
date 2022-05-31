@@ -50,8 +50,8 @@ const Context = createContext<ContextInferface>(defaultValue);
 export const ContextProvider: React.FC<{ children: ReactNode }> = ({
     children,
 }) => {
-    // axiosInstance.patch(`user/role`, {
-    //     role: 'employee',
+    // axiosInstance.patch(`/user/role`, {
+    //     role: 'project_manager',
     // });
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [employeeModalOpen, setEmployeeModalOpen] = useState<boolean>(false);
@@ -70,7 +70,7 @@ export const ContextProvider: React.FC<{ children: ReactNode }> = ({
 
     const getUser = async () => {
         const res = await axiosInstance.get('/user');
-        setUser(res.data.user);
+        await setUser(res.data.user);
     };
 
     useEffect(() => {
