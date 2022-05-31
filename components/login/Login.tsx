@@ -6,7 +6,9 @@ import LogoImage from '../../public/assets/images/LogoImage.png';
 import axiosInstance from '../../services/axiosInstance';
 
 const Login = () => {
-    const { user, setIsLoggedIn } = useContextHook();
+    const { user, setIsLoggedIn, isLoggedIn } = useContextHook();
+
+    const router = useRouter();
 
     const loginFunction = async (data: any) => {
         const res = await axiosInstance.post(
@@ -21,21 +23,39 @@ const Login = () => {
         }
     };
 
+    const handleLogout = async () => {
+        const res = await axiosInstance.post(`/logout`);
+        window.localStorage.removeItem('token');
+        router.push('/');
+        setIsLoggedIn(false);
+    };
+
     return (
-        <section className="grid">
-            {user.email === '' ? (
+        <section className="grid justify-items-center">
+            {!isLoggedIn ? (
                 <>
                     <Image alt="logo" src={LogoImage} className="scale-75" />
                     <GoogleLogin
+                        className="w-full"
                         buttonText="SignIn"
                         clientId="1042734906801-tpmiqqk7r7ogkh8upapp09hmj8lsj137.apps.googleusercontent.com"
                         onSuccess={loginFunction}
                         onFailure={() => {}}
                         cookiePolicy="single_host_origin"
-                    ></GoogleLogin>
+                    >
+                        Sign In With Google
+                    </GoogleLogin>
                 </>
             ) : (
-                <p className="text-5xl">Welcome {user.firstName}</p>
+                <>
+                    <p className="text-5xl">Welcome {user.firstName}</p>
+                    <button
+                        onClick={() => handleLogout()}
+                        className="bg-gray-800 text-white rounded-md w-1/2 py-2 mt-5 hover:bg-opacity-75"
+                    >
+                        Logout
+                    </button>
+                </>
             )}
         </section>
     );

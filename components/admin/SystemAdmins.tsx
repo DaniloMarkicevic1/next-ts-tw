@@ -4,6 +4,7 @@ import useSWR from 'swr';
 import { User } from '../../models/User';
 import axiosInstance from '../../services/axiosInstance';
 import { fetcher } from '../../services/fetcher';
+import DeleteButton from '../buttons/DeleteButton';
 import PageTitle from '../PageTitle';
 
 const SystemAdmins = () => {
@@ -13,6 +14,10 @@ const SystemAdmins = () => {
 
     const handleRemoveFromAdmins = async (id: number) => {
         await axiosInstance.put(`/users/admins/${id}`);
+        mutate();
+    };
+    const handleDeleteUser = async ({ id }: { id: number }) => {
+        await axiosInstance.delete(`/users/${id}`);
         mutate();
     };
     return (
@@ -65,6 +70,10 @@ const SystemAdmins = () => {
                                 Remove From Admins
                                 <ThumbDownIcon className="w-5 h-5 ml-2" />
                             </button>
+                            <DeleteButton
+                                id={admin.id}
+                                handleDelete={handleDeleteUser}
+                            />
                         </li>
                     );
                 })}

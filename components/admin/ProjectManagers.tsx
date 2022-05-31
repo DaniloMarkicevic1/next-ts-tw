@@ -1,11 +1,12 @@
-import { ThumbDownIcon, ThumbUpIcon } from "@heroicons/react/outline";
-import Link from "next/link";
+import { ThumbDownIcon, ThumbUpIcon } from '@heroicons/react/outline';
+import Link from 'next/link';
 
-import useSWR from "swr";
-import { User } from "../../models/User";
-import axiosInstance from "../../services/axiosInstance";
-import { fetcher } from "../../services/fetcher";
-import PageTitle from "../PageTitle";
+import useSWR from 'swr';
+import { User } from '../../models/User';
+import axiosInstance from '../../services/axiosInstance';
+import { fetcher } from '../../services/fetcher';
+import DeleteButton from '../buttons/DeleteButton';
+import PageTitle from '../PageTitle';
 
 const ProjectManagers = () => {
     const { data, mutate } = useSWR(`/users/pm`, fetcher);
@@ -19,6 +20,11 @@ const ProjectManagers = () => {
         axiosInstance.put(`/users/pm/${id}`);
         mutate();
     };
+    const handleDeleteUser = async ({ id }: { id: number }) => {
+        await axiosInstance.delete(`/users/${id}`);
+        mutate();
+    };
+
     const projectManagers: User[] = data.project_managers;
     return (
         <>
@@ -79,6 +85,10 @@ const ProjectManagers = () => {
                                     Remove As PM
                                     <ThumbDownIcon className="w-5 h-5 ml-2" />
                                 </button>
+                                <DeleteButton
+                                    id={pm.id}
+                                    handleDelete={handleDeleteUser}
+                                />{' '}
                             </div>
                         </li>
                     );

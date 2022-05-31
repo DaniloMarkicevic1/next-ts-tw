@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
-import { useContextHook } from "../context/context";
+import { ReactNode } from 'react';
+import { useContextHook } from '../context/context';
 
 interface Props {
     children: ReactNode;
@@ -21,9 +21,10 @@ const Card: React.FC<Props> = ({ children, employeeId }) => {
             text-gray-300 
             transition-all
             items-center
-            ${!modalDataIsLoaded && "z-40 duration-300"}
-            ${modalDataIsLoaded && "z-20 duration-300"}
-            flex 
+            ${!modalDataIsLoaded && 'z-40 duration-300'}
+            ${modalDataIsLoaded && 'z-20 duration-300'}
+            flex
+            justify-around
             space-x-2 
             py-6
             pl-3 

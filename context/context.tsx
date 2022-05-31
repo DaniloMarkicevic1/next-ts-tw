@@ -20,12 +20,14 @@ interface ContextInferface {
     user: User;
     setUser: Dispatch<SetStateAction<User>>;
     setIsLoggedIn: Dispatch<SetStateAction<boolean>>;
+    isLoggedIn: boolean;
 }
 
 const defaultValue = {
     employeeModalOpen: false,
     employeeId: undefined,
     modalDataIsLoaded: false,
+    isLoggedIn: false,
     setEmployeeModalOpen: () => {},
     setEmployeeId: () => {},
     setModalDataIsLoaded: () => {},
@@ -48,7 +50,9 @@ const Context = createContext<ContextInferface>(defaultValue);
 export const ContextProvider: React.FC<{ children: ReactNode }> = ({
     children,
 }) => {
-    const router = useRouter();
+    // axiosInstance.patch(`user/role`, {
+    //     role: 'employee',
+    // });
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [employeeModalOpen, setEmployeeModalOpen] = useState<boolean>(false);
     const [employeeId, setEmployeeId] = useState<number>();
@@ -91,6 +95,7 @@ export const ContextProvider: React.FC<{ children: ReactNode }> = ({
                 user,
                 setUser,
                 setIsLoggedIn,
+                isLoggedIn,
             }}
         >
             {children}

@@ -1,4 +1,4 @@
-import { TrashIcon } from "@heroicons/react/outline";
+import { TrashIcon } from '@heroicons/react/outline';
 
 interface Props {
     id: number;
@@ -11,7 +11,7 @@ const DeleteButton: React.FC<Props> = ({ handleDelete, id }) => {
             onClick={() => handleDelete({ id })}
         >
             Delete
-            <TrashIcon className="w-5 h-5 ml-1" />{" "}
+            <TrashIcon className="w-5 h-5 ml-1" />{' '}
         </button>
     );
 };

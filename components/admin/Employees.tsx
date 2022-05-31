@@ -5,6 +5,7 @@ import { fetcher } from '../../services/fetcher';
 import axiosInstance from '../../services/axiosInstance';
 import PageTitle from '../PageTitle';
 import Link from 'next/link';
+import DeleteButton from '../buttons/DeleteButton';
 
 const AllEmployees: React.FC = () => {
     const { data, error, mutate } = useSWR(`/users/employees`, fetcher);
@@ -17,6 +18,12 @@ const AllEmployees: React.FC = () => {
         await axiosInstance.post(`users/admins/${id}`);
         mutate();
     };
+
+    const handleDeleteUser = async ({ id }: { id: number }) => {
+        await axiosInstance.delete(`/users/${id}`);
+        mutate();
+    };
+
     if (!data) return null;
     if (error) return null;
     const users: Employee[] = data.employees;
@@ -80,22 +87,22 @@ const AllEmployees: React.FC = () => {
                                 </p>
                             </a>
                         </Link>
-                        {user.role !== 'project_manager' && (
-                            <button
-                                className="bg-gray-800 flex flex-col min-w-fit items-center justify-center rounded-md py-1 px-2 hover:opacity-75"
-                                onClick={() => handleMakePM(user.id)}
-                            >
-                                Make PM
-                            </button>
-                        )}
-                        {user.role !== 'admin' && (
-                            <button
-                                className="bg-gray-800 flex flex-col min-w-fit ml-2 items-center justify-center rounded-md py-1 px-2 hover:opacity-75"
-                                onClick={() => handleMakeAdmin(user.id)}
-                            >
-                                Make Admin
-                            </button>
-                        )}
+                        <button
+                            className="bg-gray-800 flex flex-col min-w-fit items-center justify-center rounded-md py-1 px-2 hover:opacity-75"
+                            onClick={() => handleMakePM(user.id)}
+                        >
+                            Make PM
+                        </button>
+                        <button
+                            className="bg-gray-800 flex flex-col min-w-fit ml-2 items-center justify-center rounded-md py-1 px-2 hover:opacity-75"
+                            onClick={() => handleMakeAdmin(user.id)}
+                        >
+                            Make Admin
+                        </button>
+                        <DeleteButton
+                            id={user.id}
+                            handleDelete={handleDeleteUser}
+                        />
                     </section>
                 );
             })}
