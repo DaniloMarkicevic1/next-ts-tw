@@ -12,4 +12,6 @@ export interface ContextInferface {
     setUser: Dispatch<SetStateAction<User>>;
     setIsLoggedIn: Dispatch<SetStateAction<boolean>>;
     isLoggedIn: boolean;
+    sideBarIndex: number;
+    setSideBarIndex: Dispatch<SetStateAction<number>>;
 }

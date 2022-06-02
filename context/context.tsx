@@ -13,6 +13,8 @@ const defaultValue = {
     employeeId: undefined,
     modalDataIsLoaded: false,
     isLoggedIn: false,
+    sideBarIndex: 0,
+    setSideBarIndex: () => {},
     setEmployeeModalOpen: () => {},
     setEmployeeId: () => {},
     setModalDataIsLoaded: () => {},

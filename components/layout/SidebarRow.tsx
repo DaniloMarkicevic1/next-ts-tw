@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import React, { useState } from 'react';
 import { useContextHook } from '../../context/context';
 import { SidebarRow } from '../../models/SidebarRow';
 
@@ -7,7 +6,6 @@ const SidebarRow: React.FC<SidebarRow> = ({
     Icon,
     rowText,
     rowLink,
-    setIndex,
     index,
 }) => {
     const { sideBarIndex, setSideBarIndex } = useContextHook();
@@ -44,7 +42,7 @@ const SidebarRow: React.FC<SidebarRow> = ({
             <Link href={rowLink}>
                 <a
                     className="flex items-center w-full h-full p-3"
-                    onClick={() => setIndex(index)}
+                    onClick={() => setSideBarIndex(index)}
                 >
                     <Icon width={20} height={20} className="mr-2" />
                     {rowText}
