@@ -1,25 +1,30 @@
 import useSWR from 'swr';
-import { City } from '../../models/Cities';
-import axiosInstance from '../../services/axiosInstance';
 import { fetcher } from '../../services/fetcher';
+import { useState } from 'react';
+
+import axiosInstance from '../../services/axiosInstance';
+
+import { City } from '../../models/Cities';
+import { Country } from '../../models/Countries';
+
 import DeleteButton from '../buttons/DeleteButton';
 import AddForm from './AddForm';
 import ListElement from './ListElement';
 import PageTitle from '../PageTitle';
 import AddButton from '../buttons/AddButton';
-import { Country } from '../../models/Countries';
-import { useState } from 'react';
+import Spinner from '../layout/Spinner';
 
 const Cities = () => {
     const { data: cities, mutate } = useSWR(`/cities`, fetcher);
     const { data: countries } = useSWR(`/countries`, fetcher);
 
     const [countryId, setCountryId] = useState('');
-    console.log(countryId);
-    const handleDeleteCity = async ({ id }: { id: number }) => {
+
+    const handleDeleteCity = async (id: number) => {
         await axiosInstance.delete(`/cities/${id}`);
         mutate();
     };
+
     const handleAddCity = async (cityName: string) => {
         await axiosInstance.post(`cities`, {
             city: { name: cityName },
@@ -37,8 +42,8 @@ const Cities = () => {
         mutate();
     };
 
-    if (!cities) return null;
-    if (!countries) return null;
+    if (!cities) return <Spinner />;
+    if (!countries) return <Spinner />;
 
     const citiesArray: City[] = cities.cities;
     const countriesArray: Country[] = countries.countries;

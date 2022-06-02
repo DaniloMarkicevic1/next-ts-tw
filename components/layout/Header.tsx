@@ -18,7 +18,8 @@ const Navbar: React.FC<Props> = ({ setOpen, open }) => {
         const res = await axiosInstance.post(`/logout`);
         window.localStorage.removeItem('token');
         setIsLoggedIn(false);
-        router.push('/');
+
+        res.status === 201 && router.push('/');
         setUser({
             id: 0,
             firstName: '',
@@ -51,7 +52,7 @@ const Navbar: React.FC<Props> = ({ setOpen, open }) => {
                 </button>
                 <Image alt="logo" src={LogoImage} width={60} height={50} />
             </div>
-            <span className="flex space-x-5">
+            <span className="flex space-x-5 items-center">
                 {user?.id ? (
                     <p>
                         {user.firstName} {user.lastName}
@@ -61,7 +62,7 @@ const Navbar: React.FC<Props> = ({ setOpen, open }) => {
                 )}
                 <button
                     onClick={() => handleLogout()}
-                    className="flex items-center"
+                    className="flex items-center bg-gray-900 rounded-md py-2 px-3 hover:bg-gray-300 hover:text-gray-900"
                 >
                     Logout
                     <LogoutIcon width={20} height={20} className="ml-2" />

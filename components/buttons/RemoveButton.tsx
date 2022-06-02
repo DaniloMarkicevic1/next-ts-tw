@@ -1,18 +1,19 @@
-import { MinusIcon } from "@heroicons/react/outline";
+import { ThumbDownIcon } from '@heroicons/react/outline';
 
 interface Props {
-    userId: number;
-    handleRemove: ({ userId }: { userId: number }) => Promise<void>;
+    id: number;
+    handleRemove: (id: number) => Promise<void>;
+    text: string;
 }
 
-const RemoveButton: React.FC<Props> = ({ handleRemove, userId }) => {
+const RemoveButton: React.FC<Props> = ({ handleRemove, id, text }) => {
     return (
         <button
-            onClick={() => handleRemove({ userId })}
-            className="bg-red-700 flex items-center ml-2 text-gray-300 rounded-md py-1 px-3 hover:opacity-75"
+            onClick={() => handleRemove(id)}
+            className="bg-red-700 flex items-center mx-1 text-gray-300 rounded-md py-1 px-3 hover:opacity-75 min-w-fit hover:bg-orange-300 hover:text-red-800"
         >
-            <MinusIcon className="w-5 h-5 mr-2" />
-            Remove From Project
+            Remove From {text}
+            <ThumbDownIcon className="w-5 h-5 ml-2" />
         </button>
     );
 };

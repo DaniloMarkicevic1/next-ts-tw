@@ -1,48 +1,38 @@
+import { createContext, ReactNode, useContext, useReducer } from 'react';
+import { Filter } from '../models/Filter';
 import {
-    createContext,
-    Dispatch,
-    ReactNode,
-    useContext,
-    useReducer,
-} from "react";
-import { Filter } from "../models/Filter";
-
-interface ContextInferface extends Filter {
-    dispatch: Dispatch<ActionType>;
-}
+    FilterActionType,
+    FilterContextInferface,
+} from '../models/FilterContext';
 
 const defaultValue = {
-    dispatch: (value: ActionType) => {},
-    city: "",
-    cityValue: "",
-    country: "",
-    countryValue: "",
-    seniority: "",
-    seniorityValue: "",
-    project: "",
-    projectValue: "",
-    projectManager: "",
-    pmValue: "",
-    technology: "",
-    technologyValue: "",
-    name: "",
+    dispatch: (value: FilterActionType) => {},
+    city: '',
+    cityValue: '',
+    country: '',
+    countryValue: '',
+    seniority: '',
+    seniorityValue: '',
+    project: '',
+    projectValue: '',
+    projectManager: '',
+    pmValue: '',
+    technology: '',
+    technologyValue: '',
+    name: '',
 };
 
-const FilterContext = createContext<ContextInferface>(defaultValue);
+const FilterContext = createContext<FilterContextInferface>(defaultValue);
 
 // FilterBy:
-type ActionType =
-    | { type: "pick_filter"; payload: string; key: string }
-    | { type: "filter_value"; payload: string; key: string }
-    | { type: "reset" };
 
-const reducer = (state: Filter, action: ActionType) => {
+const reducer = (state: Filter, action: FilterActionType) => {
     switch (action.type) {
-        case "pick_filter":
+        case 'pick_filter':
             return { ...state, [action.key]: action.payload };
-        case "filter_value":
+        case 'filter_value':
             return { ...state, [action.key]: action.payload };
-        case "reset":
+        case 'reset':
             return initialState;
         default:
             return state;
@@ -50,19 +40,19 @@ const reducer = (state: Filter, action: ActionType) => {
 };
 
 const initialState = {
-    city: "",
-    cityValue: "",
-    country: "",
-    countryValue: "",
-    name: "",
-    seniority: "",
-    seniorityValue: "",
-    technology: "",
-    technologyValue: "",
-    project: "",
-    projectValue: "",
-    projectManager: "",
-    pmValue: "",
+    city: '',
+    cityValue: '',
+    country: '',
+    countryValue: '',
+    name: '',
+    seniority: '',
+    seniorityValue: '',
+    technology: '',
+    technologyValue: '',
+    project: '',
+    projectValue: '',
+    projectManager: '',
+    pmValue: '',
 };
 // ********
 

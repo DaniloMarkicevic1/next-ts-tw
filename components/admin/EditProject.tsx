@@ -5,6 +5,7 @@ import useSWR from 'swr';
 import { User } from '../../models/Employees';
 import { ProjectType } from '../../models/Projects';
 import { fetcher } from '../../services/fetcher';
+import Spinner from '../layout/Spinner';
 import PageTitle from '../PageTitle';
 import EditProjectUsers from './EditProjectUsers';
 
@@ -28,8 +29,8 @@ const EditProject = () => {
 
         fetcher
     );
-    if (!project) return <p>Loading</p>;
-    if (!users) return <p>Loading</p>;
+    if (!project) return <Spinner />;
+    if (!users) return <Spinner />;
     const projectData: Project = project.project;
     const usersData: User[] = users.users;
     return (

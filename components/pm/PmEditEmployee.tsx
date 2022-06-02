@@ -1,12 +1,14 @@
-import { ArrowLeftIcon, PlusIcon } from "@heroicons/react/outline";
-import { FormEvent, useReducer } from "react";
-import { KeyedMutator } from "swr/dist/types";
-import { useContextHook } from "../../context/context";
-import { Employee } from "../../models/Employees";
-import { ProjectType } from "../../models/Projects";
-import axiosInstance from "../../services/axiosInstance";
+import { ArrowLeftIcon, PlusIcon } from '@heroicons/react/outline';
+import { FormEvent, useReducer } from 'react';
+import { KeyedMutator } from 'swr/dist/types';
+import { useContextHook } from '../../context/context';
+import { Employee } from '../../models/Employees';
+import { ProjectType } from '../../models/Projects';
+import axiosInstance from '../../services/axiosInstance';
+import Spinner from '../layout/Spinner';
+import EmployeeNotes from './EmployeeNotes';
 const initialState = {
-    text: "",
+    text: '',
     projectId: 0,
 };
 interface Props {
@@ -15,12 +17,15 @@ interface Props {
     modalOpen: boolean;
     mutate: KeyedMutator<{}>;
 }
+interface ReducerState {
+    text: string;
+    projectId: number;
+}
 
-const reducer = (state: any, action: any) => {
+const reducer = (state: ReducerState, action: any) => {
     switch (action.type) {
-        case "update_input":
+        case 'update_input':
             return { ...state, [action.key]: action.payload };
-
         default:
             return state;
     }
@@ -48,7 +53,7 @@ const PmEditEmployee: React.FC<Props> = ({ employee, projects, mutate }) => {
             note: { text: state.text },
         });
         mutate();
-        dispatch({ type: "update_input", payload: "", key: "name" });
+        state.text = '';
     };
     const handleSubmitChangeProject = async () => {
         await axiosInstance.post(`/users/${id}/project/${state.projectId}`);
@@ -99,7 +104,7 @@ const PmEditEmployee: React.FC<Props> = ({ employee, projects, mutate }) => {
                     <p>Country: {city?.country.name}</p>
                     <p>City: {city?.name}</p>
                     <p>
-                        Project Manager: {project?.projectManager?.firstName}{" "}
+                        Project Manager: {project?.projectManager?.firstName}{' '}
                         {project?.projectManager?.lastName}
                     </p>
                     <p>Project: {project?.name}</p>
@@ -113,12 +118,12 @@ const PmEditEmployee: React.FC<Props> = ({ employee, projects, mutate }) => {
                         <label>Select Project: </label>
                         <select
                             name="projectId"
-                            value={state.project}
+                            value={state.projectId}
                             className="py-2 px-1 text-gray-800 hover:cursor-pointer rounded-lg"
                             onInput={(e) => {
                                 const target = e.target as HTMLSelectElement;
                                 dispatch({
-                                    type: "update_input",
+                                    type: 'update_input',
                                     payload: target.value,
                                     key: target.name,
                                 });
@@ -140,68 +145,23 @@ const PmEditEmployee: React.FC<Props> = ({ employee, projects, mutate }) => {
                         </button>
                     </form>
                     <p>
-                        Technologies:{" "}
+                        Technologies:{' '}
                         {technologies?.map((technology) => {
                             return (
                                 <span key={technology.id}>
-                                    {technology.name}{" "}
+                                    {technology.name}{' '}
                                 </span>
                             );
                         })}
                     </p>
                 </div>
                 {/* NOTES: Add and See */}
-                <div className="col-span-3 overflow-auto relative w-full">
-                    <form
-                        className="sticky top-0 bg-green-700"
-                        onSubmit={(e) => {
-                            e.preventDefault();
-                            handleSubmitNote();
-                        }}
-                    >
-                        <textarea
-                            name="text"
-                            placeholder="Note text"
-                            rows={4}
-                            value={state.text}
-                            className="rounded-md text-gray-800 w-full p-1 outline-none focus:border-gray-800 border"
-                            onInput={(event: FormEvent) => {
-                                const target =
-                                    event.target as HTMLTextAreaElement;
-                                dispatch({
-                                    type: "update_input",
-                                    payload: target.value,
-                                    key: target.name,
-                                });
-                            }}
-                        />
-                        <button className="flex items-center bg-gray-400 rounded-xl p-2 hover:bg-opacity-80">
-                            Add Note <PlusIcon className="ml-1 w-4 h-4" />
-                        </button>
-                        <p>Notes:</p>
-                    </form>
-                    <div className="divide-green-800 divide-y-2 rounded-lg">
-                        {notes?.map((note) => (
-                            <div
-                                key={note.id}
-                                className="rounded-lg p-2 bg-gray-300 text-gray-800 grid"
-                            >
-                                <p className="text-md" key={note.id}>
-                                    {note.createdBy}:
-                                </p>
-                                <p className="first-letter:capitalize border border-gray-800 rounded-lg p-1">
-                                    {note.text}
-                                </p>
-                                <p className="text-xs">
-                                    Created At: {note.createdAt}
-                                </p>
-                                <p className="text-xs">
-                                    Updated At: {note.updatedAt}
-                                </p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
+                <EmployeeNotes
+                    handleSubmit={handleSubmitNote}
+                    text={state.text}
+                    notes={notes}
+                    dispatch={dispatch}
+                />
             </section>
         </>
     );

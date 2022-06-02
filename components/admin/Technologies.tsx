@@ -1,11 +1,12 @@
-import useSWR from "swr";
-import { Tech } from "../../models/Technologies";
-import axiosInstance from "../../services/axiosInstance";
-import { fetcher } from "../../services/fetcher";
-import DeleteButton from "../buttons/DeleteButton";
-import AddForm from "./AddForm";
-import ListElement from "./ListElement";
-import PageTitle from "../PageTitle";
+import useSWR from 'swr';
+import { Tech } from '../../models/Technologies';
+import axiosInstance from '../../services/axiosInstance';
+import { fetcher } from '../../services/fetcher';
+import DeleteButton from '../buttons/DeleteButton';
+import AddForm from './AddForm';
+import ListElement from './ListElement';
+import PageTitle from '../PageTitle';
+import Spinner from '../layout/Spinner';
 
 const Technologies = () => {
     const { data, mutate } = useSWR(`/technologies`, fetcher);
@@ -17,12 +18,13 @@ const Technologies = () => {
         mutate();
     };
 
-    const handleDeleteTech = async ({ id }: { id: number }) => {
+    const handleDeleteTech = async (id: number) => {
         await axiosInstance.delete(`/technologies/${id}`);
         mutate();
     };
 
-    if (!data) return <p>Loading</p>;
+    if (!data) return <Spinner />;
+
     const techArray: Tech[] = data.technologies;
 
     return (

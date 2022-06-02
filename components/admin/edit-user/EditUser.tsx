@@ -7,6 +7,7 @@ import { Employee } from '../../../models/Employees';
 import PageTitle from '../../PageTitle';
 import Forms from './Forms';
 import User from './User';
+import Spinner from '../../layout/Spinner';
 
 const EditUser = () => {
     const { query } = useRouter();
@@ -22,10 +23,10 @@ const EditUser = () => {
     const { data: projects } = useSWR(() => `/projects`, fetcher);
     const { data: technologies } = useSWR(() => `/technologies`, fetcher);
 
-    if (!cities) return <p>Loading</p>;
-    if (!projects) return <p>Loading</p>;
-    if (!technologies) return <p>Loading</p>;
-    if (!data) return <p>Loading</p>;
+    if (!cities) return <Spinner />;
+    if (!projects) return <Spinner />;
+    if (!technologies) return <Spinner />;
+    if (!data) return <Spinner />;
 
     const user: Employee = data.user;
 

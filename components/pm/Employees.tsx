@@ -6,17 +6,21 @@ import {
 import { useState } from 'react';
 import { Employee, EmployeesRes } from '../../models/Employees';
 import Card from '../Card';
+import Spinner from '../layout/Spinner';
+import CardItem from './CardItem';
+import EmployeeList from './EmployeeList';
 import PmFilters from './PmFilters';
 
 const Employees: React.FC<EmployeesRes> = ({ employeesRes }) => {
     const [showFilters, setShowFilters] = useState(false);
 
+    // if (!employeesRes) return <Spinner />;
     return (
         <>
             <p className="text-center font-bold text-3xl">Employees</p>
             <section className="relative">
                 <div
-                    className="relative group hover:cursor-pointer flex max-w-fit items-center"
+                    className="bg-gray-800 text-gray-300 p-2 rounded-md m-2 relative group hover:cursor-pointer flex max-w-fit items-center"
                     onClick={() => setShowFilters(!showFilters)}
                 >
                     <p>Filters</p>
@@ -31,66 +35,10 @@ const Employees: React.FC<EmployeesRes> = ({ employeesRes }) => {
                     setShowFilters={setShowFilters}
                 />
             </section>
-            {!employeesRes ? (
-                <p>Loading</p>
+            {employeesRes ? (
+                <EmployeeList employees={employeesRes.employees} />
             ) : (
-                <ul>
-                    {employeesRes.employees.map((employee: Employee) => (
-                        <>
-                            {console.log(employee)}
-                            <Card key={employee.id} employeeId={employee.id}>
-                                <p className="grid justify-center text-center">
-                                    <span className="text-gray-800">Name:</span>
-                                    {employee.firstName} {employee.lastName}
-                                </p>
-                                <div className="bg-gray-900 w-0.5 h-10"></div>
-                                <p className="grid justify-center text-center">
-                                    <span className="text-gray-800">
-                                        E-mail:
-                                    </span>
-                                    {employee.email}
-                                </p>
-                                <div className="bg-gray-900 w-0.5 h-10"></div>
-                                <p className="grid justify-center text-center">
-                                    <span className="text-gray-800">City:</span>
-                                    {employee.city?.name}
-                                </p>
-                                <div className="bg-gray-900 w-0.5 h-10"></div>
-                                <p className="grid justify-center text-center">
-                                    <span className="text-gray-800">
-                                        Country:
-                                    </span>
-                                    {employee.city?.country.name}
-                                </p>
-                                <div className="bg-gray-900 w-0.5 h-10"></div>
-                                <p className="grid justify-center text-center">
-                                    <span className="text-gray-800">
-                                        Project:
-                                    </span>
-                                    {employee.project?.name}
-                                </p>
-                                <div className="bg-gray-900 w-0.5 h-10"></div>
-                                <p className="grid justify-center text-center">
-                                    <span className="text-gray-800">
-                                        Project Manager:
-                                    </span>
-                                    {
-                                        employee.project?.projectManager
-                                            ?.firstName
-                                    }
-                                    {employee.project?.projectManager?.lastName}
-                                </p>
-                                <div className="bg-gray-900 w-0.5 h-10"></div>
-                                <p className="capitalize grid justify-center text-center">
-                                    <span className="text-gray-800">
-                                        Seniority:
-                                    </span>
-                                    {employee.seniority}
-                                </p>
-                            </Card>
-                        </>
-                    ))}
-                </ul>
+                <Spinner />
             )}
         </>
     );

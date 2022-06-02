@@ -1,27 +1,12 @@
-import { useRouter } from 'next/router';
 import {
     createContext,
-    Dispatch,
     ReactNode,
-    SetStateAction,
     useContext,
     useEffect,
     useState,
 } from 'react';
-import { User } from '../models/User';
+import { ContextInferface } from '../models/Context';
 import axiosInstance from '../services/axiosInstance';
-interface ContextInferface {
-    employeeModalOpen: boolean;
-    setEmployeeModalOpen: Dispatch<SetStateAction<boolean>>;
-    employeeId: number | undefined;
-    setEmployeeId: Dispatch<SetStateAction<number | undefined>>;
-    modalDataIsLoaded: boolean;
-    setModalDataIsLoaded: Dispatch<SetStateAction<boolean>>;
-    user: User;
-    setUser: Dispatch<SetStateAction<User>>;
-    setIsLoggedIn: Dispatch<SetStateAction<boolean>>;
-    isLoggedIn: boolean;
-}
 
 const defaultValue = {
     employeeModalOpen: false,
@@ -51,12 +36,14 @@ export const ContextProvider: React.FC<{ children: ReactNode }> = ({
     children,
 }) => {
     // axiosInstance.patch(`/user/role`, {
-    //     role: 'project_manager',
+    //     role: 'admin',
     // });
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [employeeModalOpen, setEmployeeModalOpen] = useState<boolean>(false);
     const [employeeId, setEmployeeId] = useState<number>();
     const [modalDataIsLoaded, setModalDataIsLoaded] = useState<boolean>(false);
+    const [sideBarIndex, setSideBarIndex] = useState(0);
+
     const [user, setUser] = useState({
         id: 0,
         firstName: '',
@@ -67,7 +54,6 @@ export const ContextProvider: React.FC<{ children: ReactNode }> = ({
         seniority: '',
         plan: '',
     });
-
     const getUser = async () => {
         const res = await axiosInstance.get('/user');
         await setUser(res.data.user);
@@ -96,6 +82,8 @@ export const ContextProvider: React.FC<{ children: ReactNode }> = ({
                 setUser,
                 setIsLoggedIn,
                 isLoggedIn,
+                sideBarIndex,
+                setSideBarIndex,
             }}
         >
             {children}

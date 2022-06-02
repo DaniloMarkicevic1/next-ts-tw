@@ -1,7 +1,7 @@
-import { Employee, User } from "./Employees";
+import { Employee, User } from './Employees';
 
 export interface Projects {
-    projects: [ProjectType];
+    projects: ProjectType[];
 }
 
 export interface ProjectType {

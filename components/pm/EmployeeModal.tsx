@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import useSWR from 'swr';
 import { useContextHook } from '../../context/context';
 import { fetcher } from '../../services/fetcher';
+import Spinner from '../layout/Spinner';
 import PmEditEmployee from './PmEditEmployee';
 
 const EmployeeModal: React.FC = () => {
@@ -12,14 +13,17 @@ const EmployeeModal: React.FC = () => {
         setModalDataIsLoaded,
         modalDataIsLoaded,
     } = useContextHook();
+
     const { data, error, mutate } = useSWR(
         () => (employeeId ? `pm/employees/${employeeId}` : null),
         fetcher
     );
+
     const { data: projectData, error: projectError } = useSWR(
         `pm/projects`,
         fetcher
     );
+
     useEffect(() => {
         if (employeeModalOpen) {
             setModalDataIsLoaded && setModalDataIsLoaded(true);

@@ -1,12 +1,23 @@
-import Link from "next/link";
-import React from "react";
-import { SidebarRow } from "../../models/SidebarRow";
+import Link from 'next/link';
+import React, { useState } from 'react';
+import { useContextHook } from '../../context/context';
+import { SidebarRow } from '../../models/SidebarRow';
 
-const SidebarRow: React.FC<SidebarRow> = ({ Icon, rowText, rowLink }) => {
+const SidebarRow: React.FC<SidebarRow> = ({
+    Icon,
+    rowText,
+    rowLink,
+    setIndex,
+    index,
+}) => {
+    const { sideBarIndex, setSideBarIndex } = useContextHook();
+
+    console.log(sideBarIndex);
     return (
         <li
-            className="
-                relative
+            className={`
+                ${sideBarIndex === index && 'bg-green-300 text-green-800'}  
+                relative 
                 bg-green-800 z-10 
                 text-gray-300
                 after:content-['']
@@ -25,13 +36,16 @@ const SidebarRow: React.FC<SidebarRow> = ({ Icon, rowText, rowLink }) => {
                 after:transition-transform
                 after:hover:origin-left
                 after:duration-200
-                hover:text-gray-800
+                hover:text-green-800
                 hover:transition-colors
                 hover:duration-200
-                "
+             `}
         >
             <Link href={rowLink}>
-                <a className="flex items-center w-full h-full p-3">
+                <a
+                    className="flex items-center w-full h-full p-3"
+                    onClick={() => setIndex(index)}
+                >
                     <Icon width={20} height={20} className="mr-2" />
                     {rowText}
                 </a>

@@ -1,14 +1,15 @@
 import { TrashIcon } from '@heroicons/react/outline';
+import axiosInstance from '../../services/axiosInstance';
 
 interface Props {
     id: number;
-    handleDelete: ({ id }: { id: number }) => Promise<void>;
+    handleDelete: (id: number) => Promise<void>;
 }
 const DeleteButton: React.FC<Props> = ({ handleDelete, id }) => {
     return (
         <button
-            className="hover:bg-opacity-75 text-white ml-2 flex items-center bg-red-700 rounded-md py-1 px-3 hover:bg-opaCountry-50"
-            onClick={() => handleDelete({ id })}
+            className="hover:bg-orange-300 hover:text-red-800 text-white mx-1 flex items-center bg-red-700 rounded-md py-1 px-3 min-w-fit"
+            onClick={() => handleDelete(id)}
         >
             Delete
             <TrashIcon className="w-5 h-5 ml-1" />{' '}

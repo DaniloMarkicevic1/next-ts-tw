@@ -4,12 +4,11 @@ import { useFilterContextHook } from '../../context/filter-context';
 import { fetcher } from '../../services/fetcher';
 import Checkbox from './Checkbox';
 
-// Click on country, add ?country=SelectedValue, send fetch request,
-// Give data to Employees.tsx
 const PmFilters: React.FC<{
     showFilters: boolean;
     setShowFilters: Dispatch<SetStateAction<boolean>>;
 }> = ({ setShowFilters, showFilters }) => {
+    // Get Available data to filter by
     const { dispatch } = useFilterContextHook();
     const { data: technologies } = useSWR(`/technologies`, fetcher);
     const { data: cities } = useSWR(`/cities`, fetcher);
@@ -24,7 +23,6 @@ const PmFilters: React.FC<{
             { name: 'Senior' },
         ],
     };
-
     return (
         <section
             id="filterBackdrop"
@@ -34,15 +32,15 @@ const PmFilters: React.FC<{
                     setShowFilters(false);
                 }
             }}
-            className={`backdrop z-50 rounded-lg absolute top-5 left-0 p-4 w-full h-10/12 text-gray-300 bg-black bg-opacity-80 ${
+            className={`backdrop z-50 rounded-lg absolute top-12 left-0 p-4 w-full h-10/12 text-gray-300 bg-black bg-opacity-80 ${
                 showFilters ? 'opacity-100' : 'opacity-0 pointer-events-none'
             } transition-all duration-500`}
         >
             <div>
-                <p className="text-red-900">
+                {/* <p className="text-red-900">
                     You can have only one option selected, please don&apos;t
                     pick multiple options
-                </p>
+                </p> */}
                 <label>Filter By Name:</label>
                 <input
                     type="text"
@@ -106,11 +104,10 @@ const PmFilters: React.FC<{
                                 dispatch({ type: 'reset' });
                             }}
                         >
-                            {' '}
                             Reset Filters
                         </button>
                     </section>
-                )}{' '}
+                )}
             </div>
         </section>
     );

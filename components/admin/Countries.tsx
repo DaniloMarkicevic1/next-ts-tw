@@ -7,11 +7,12 @@ import DeleteButton from '../buttons/DeleteButton';
 import AddForm from './AddForm';
 import ListElement from './ListElement';
 import PageTitle from '../PageTitle';
+import Spinner from '../layout/Spinner';
 
 const Countries = () => {
     const { data: countries, mutate } = useSWR(`/countries`, fetcher);
 
-    const handleDeleteCountry = async ({ id }: { id: number }) => {
+    const handleDeleteCountry = async (id: number) => {
         await axiosInstance.delete(`/countries/${id}`);
         mutate();
     };
@@ -21,7 +22,7 @@ const Countries = () => {
         });
         mutate();
     };
-    if (!countries) return null;
+    if (!countries) return <Spinner />;
     const countriesArray: Country[] = countries.countries.sort(
         (a: { id: number }, b: { id: number }) => a.id - b.id
     );

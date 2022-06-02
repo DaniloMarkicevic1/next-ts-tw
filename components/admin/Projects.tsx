@@ -1,12 +1,13 @@
-import useSWR from "swr";
-import { ProjectType } from "../../models/Projects";
-import { User } from "../../models/User";
-import axiosInstance from "../../services/axiosInstance";
-import { fetcher } from "../../services/fetcher";
-import DeleteButton from "../buttons/DeleteButton";
-import AddForm from "./AddForm";
-import PageTitle from "../PageTitle";
-import Link from "next/link";
+import useSWR from 'swr';
+import { ProjectType } from '../../models/Projects';
+import { User } from '../../models/User';
+import axiosInstance from '../../services/axiosInstance';
+import { fetcher } from '../../services/fetcher';
+import DeleteButton from '../buttons/DeleteButton';
+import AddForm from './AddForm';
+import PageTitle from '../PageTitle';
+import Link from 'next/link';
+import Spinner from '../layout/Spinner';
 
 interface AdminProjects extends ProjectType {
     projectManager: User;
@@ -15,18 +16,17 @@ interface AdminProjects extends ProjectType {
 const Projects = () => {
     const { data: projects, error, mutate } = useSWR(`/projects`, fetcher);
 
-    if (!projects) return <p>Loading</p>;
     const handleAddProject = async (projectName: string) => {
         await axiosInstance.post(`/projects`, {
             project: { name: projectName },
         });
         mutate();
     };
-    const handleDeleteProject = async ({ id }: { id: number }) => {
+    const handleDeleteProject = async (id: number) => {
         await axiosInstance.delete(`/projects/${id}`);
         mutate();
     };
-    if (!projects) return <p>Loading</p>;
+    if (!projects) return <Spinner />;
     const projectsArray: AdminProjects[] = projects.projects;
     return (
         <>
@@ -48,11 +48,11 @@ const Projects = () => {
                             <a className="w-full h-full">
                                 <p>Project Name: {name}</p>
                                 <p>
-                                    Project Manager: {projectManager?.firstName}{" "}
+                                    Project Manager: {projectManager?.firstName}{' '}
                                     {projectManager?.lastName}
                                 </p>
                                 <p>
-                                    Number of people on project:{" "}
+                                    Number of people on project:{' '}
                                     {employees.length}
                                 </p>
                             </a>
