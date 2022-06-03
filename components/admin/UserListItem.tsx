@@ -13,7 +13,6 @@ type Props = {
 const UserListItem: React.FC<Props> = ({ user }) => {
     const handleMakeAdmin = async (id: number) => {
         await axiosInstance.post(`users/admins/${id}`);
-        // await axiosInstance.post(`users/admins/${id}`);
 
         mutate('/users/pm');
         mutate('/users/employees');
@@ -21,8 +20,8 @@ const UserListItem: React.FC<Props> = ({ user }) => {
 
     const handleRemoveFromPms = async (id: number) => {
         await axiosInstance.put(`/users/pm/${id}`);
-        mutate(`/users/pm`);
-        mutate(`/users/employees`);
+        mutate(`users/pm`);
+        mutate(`users/employees`);
     };
 
     const handleDeleteUser = async (id: number) => {
@@ -99,7 +98,7 @@ const UserListItem: React.FC<Props> = ({ user }) => {
                     <RemoveButton
                         text="PM"
                         handleRemove={handleRemoveFromPms}
-                        id={user.id}
+                        userId={user.id}
                     />
                 </>
             )}
@@ -107,7 +106,7 @@ const UserListItem: React.FC<Props> = ({ user }) => {
                 <RemoveButton
                     text="Admins"
                     handleRemove={handleRemoveFromAdmins}
-                    id={user.id}
+                    userId={user.id}
                 />
             )}
             <DeleteButton id={user.id} handleDelete={handleDeleteUser} />

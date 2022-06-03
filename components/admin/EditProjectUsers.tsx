@@ -1,9 +1,9 @@
-import { PlusIcon } from "@heroicons/react/outline";
-import { useRouter } from "next/router";
-import { KeyedMutator } from "swr";
-import { User } from "../../models/Employees";
-import axiosInstance from "../../services/axiosInstance";
-import RemoveButton from "../buttons/RemoveButton";
+import { PlusIcon, ThumbUpIcon } from '@heroicons/react/outline';
+import { useRouter } from 'next/router';
+import { KeyedMutator } from 'swr';
+import { User } from '../../models/Employees';
+import axiosInstance from '../../services/axiosInstance';
+import RemoveButton from '../buttons/RemoveButton';
 
 interface Props {
     employees: User[];
@@ -12,9 +12,7 @@ interface Props {
     toAdd: boolean;
     mutateUsers: KeyedMutator<any>;
 }
-interface RemoveFunctionProps {
-    userId: number;
-}
+
 interface AddFunctionProps {
     userId: number;
     projectId: string | string[] | undefined;
@@ -28,7 +26,7 @@ const EditProjectUsers: React.FC<Props> = ({
 }) => {
     const router = useRouter();
     const projectId = router.query.id;
-    const handleRemoveFromProject = async ({ userId }: RemoveFunctionProps) => {
+    const handleRemoveFromProject = async (userId: number) => {
         await axiosInstance.post(`users/project/${userId}`);
         mutateUsers();
         mutate();
@@ -47,7 +45,7 @@ const EditProjectUsers: React.FC<Props> = ({
             <p>{text}</p>
             <ul>
                 {employees.map((employee) => {
-                    if (toAdd === true && employee.role !== "employee") {
+                    if (toAdd === true && employee.role !== 'employee') {
                         return;
                     }
                     return (
@@ -67,6 +65,7 @@ const EditProjectUsers: React.FC<Props> = ({
                                 <RemoveButton
                                     handleRemove={handleRemoveFromProject}
                                     userId={employee.id}
+                                    text="Project"
                                 />
                             )}
                             {toAdd === true && (
@@ -77,10 +76,10 @@ const EditProjectUsers: React.FC<Props> = ({
                                             projectId: projectId,
                                         })
                                     }
-                                    className="flex items-center bg-green-700 text-gray-300 rounded-md py-1 px-2 hover:opacity-75"
+                                    className="flex bg-gray-800 text-gray-300 rounded-md py-1 px-3 ml-4 hover:bg-gray-200 hover:text-gray-800"
                                 >
-                                    <PlusIcon className="w-5 h-5 mr-2" />
                                     Add To Project
+                                    <ThumbUpIcon className="w-5 h-5 ml-2" />
                                 </button>
                             )}
                         </li>

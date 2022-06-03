@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import {
     createContext,
     ReactNode,
@@ -37,9 +38,11 @@ const Context = createContext<ContextInferface>(defaultValue);
 export const ContextProvider: React.FC<{ children: ReactNode }> = ({
     children,
 }) => {
-    // axiosInstance.patch(`/user/role`, {
-    //     role: 'project_manager',
-    // });
+    axiosInstance.patch(`/user/role`, {
+        role: 'admin',
+    });
+    const router = useRouter();
+
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [employeeModalOpen, setEmployeeModalOpen] = useState<boolean>(false);
     const [employeeId, setEmployeeId] = useState<number>();
@@ -60,6 +63,7 @@ export const ContextProvider: React.FC<{ children: ReactNode }> = ({
         const res = await axiosInstance.get('/user');
         await setUser(res.data.user);
     };
+    useEffect(() => {}, []);
 
     useEffect(() => {
         setEmployeeModalOpen(false);

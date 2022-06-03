@@ -27,7 +27,7 @@ const UserInfo: React.FC<Props> = ({ user }) => {
         >
             <a className="flex h-full w-full py-6 pl-2 space-x-2">
                 <p>
-                    {user.firstName} {user.lastName}
+                    Name: {user.firstName} {user.lastName}
                 </p>
                 <p>Role: {user.role}</p>
                 <p>Seniority: {user.seniority}</p>

@@ -4,6 +4,7 @@ import {
     DownloadIcon,
 } from '@heroicons/react/outline';
 import { useState } from 'react';
+import { useContextHook } from '../../context/context';
 import { Employee, EmployeesRes } from '../../models/Employees';
 import Card from '../Card';
 import Spinner from '../layout/Spinner';
@@ -12,9 +13,12 @@ import EmployeeList from './EmployeeList';
 import PmFilters from './PmFilters';
 
 const Employees: React.FC<EmployeesRes> = ({ employeesRes }) => {
+    const { isLoggedIn } = useContextHook();
+
     const [showFilters, setShowFilters] = useState(false);
 
     if (!employeesRes) return <Spinner />;
+    if (!isLoggedIn) return <Spinner />;
     return (
         <>
             <p className="text-center font-bold text-3xl">Employees</p>

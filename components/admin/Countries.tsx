@@ -8,6 +8,7 @@ import AddForm from './AddForm';
 import ListElement from './ListElement';
 import PageTitle from '../PageTitle';
 import Spinner from '../layout/Spinner';
+import List from './List';
 
 const Countries = () => {
     const { data: countries, mutate } = useSWR(`/countries`, fetcher);
@@ -35,15 +36,12 @@ const Countries = () => {
                 inputName="addCountry"
                 buttonText="Country"
             />
-            {countries &&
-                countriesArray.map(({ name, id }) => (
-                    <ListElement name={name} key={id}>
-                        <DeleteButton
-                            handleDelete={handleDeleteCountry}
-                            id={id}
-                        />
-                    </ListElement>
-                ))}
+
+            <List
+                data={countriesArray}
+                deleteFunction={handleDeleteCountry}
+                page="Countries"
+            />
         </>
     );
 };

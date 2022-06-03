@@ -1,4 +1,4 @@
-import React, { Children, ReactNode } from "react";
+import React, { ReactNode } from 'react';
 
 type Props = {
     name: string;
@@ -7,10 +7,10 @@ type Props = {
 
 const ListElement: React.FC<Props> = ({ children, name }) => {
     return (
-        <span className="flex items-center mb-2">
+        <li className="w-3/12 flex items-center mb-2 font-medium justify-between">
             <p>{name}</p>
             {children}
-        </span>
+        </li>
     );
 };
 

@@ -8,6 +8,8 @@ import PageTitle from '../../PageTitle';
 import Forms from './Forms';
 import User from './User';
 import Spinner from '../../layout/Spinner';
+import Link from 'next/link';
+import { ArrowLeftIcon } from '@heroicons/react/outline';
 
 const EditUser = () => {
     const { query } = useRouter();
@@ -42,6 +44,12 @@ const EditUser = () => {
                     user.firstName
                 } ${user.lastName}:`}
             />
+            <Link href={'/admin/employees'}>
+                <a className="mb-2 flex text-gray-300 items-center justify-self-start max-w-fit bg-gray-800 rounded-lg py-2 px-3 hover:bg-opacity-75">
+                    <ArrowLeftIcon className="w-4 mr-3 h-4" />
+                    Go Back
+                </a>
+            </Link>
             <User user={user} mutate={mutate} isValidating={isValidating} />
             {/* Edit Section */}
             <Forms

@@ -7,6 +7,7 @@ import AddForm from './AddForm';
 import ListElement from './ListElement';
 import PageTitle from '../PageTitle';
 import Spinner from '../layout/Spinner';
+import List from './List';
 
 const Technologies = () => {
     const { data, mutate } = useSWR(`/technologies`, fetcher);
@@ -35,14 +36,11 @@ const Technologies = () => {
                 inputName="addTech"
                 buttonText="Technology"
             />
-            {techArray.map((tech) => (
-                <ListElement name={tech.name} key={tech.id}>
-                    <DeleteButton
-                        handleDelete={handleDeleteTech}
-                        id={tech.id}
-                    />
-                </ListElement>
-            ))}
+            <List
+                data={techArray}
+                deleteFunction={handleDeleteTech}
+                page="tech"
+            />
         </>
     );
 };

@@ -13,10 +13,11 @@ import ListElement from './ListElement';
 import PageTitle from '../PageTitle';
 import AddButton from '../buttons/AddButton';
 import Spinner from '../layout/Spinner';
+import AddCityToCountry from './AddCityToCountry';
+import List from './List';
 
 const Cities = () => {
     const { data: cities, mutate } = useSWR(`/cities`, fetcher);
-    const { data: countries } = useSWR(`/countries`, fetcher);
 
     const [countryId, setCountryId] = useState('');
 
@@ -32,21 +33,10 @@ const Cities = () => {
         mutate();
     };
 
-    const handleAddCityToCountry = async (
-        cityId: number,
-        countryId: string
-    ) => {
-        const res = await axiosInstance.post(
-            `countries/${countryId}/city/${cityId}`
-        );
-        mutate();
-    };
-
     if (!cities) return <Spinner />;
-    if (!countries) return <Spinner />;
 
     const citiesArray: City[] = cities.cities;
-    const countriesArray: Country[] = countries.countries;
+
     return (
         <>
             <PageTitle title="Cities:" />
@@ -55,40 +45,11 @@ const Cities = () => {
                 inputName="addCity"
                 buttonText="City"
             />
-            {cities &&
-                citiesArray.map(({ name, id, country }) => (
-                    <ListElement name={name} key={id}>
-                        <DeleteButton handleDelete={handleDeleteCity} id={id} />
-                        <form
-                            onSubmit={(e) => {
-                                e.preventDefault();
-                                handleAddCityToCountry(id, countryId);
-                            }}
-                            className="flex items-center space-x-2"
-                        >
-                            <AddButton text="City To Country" />
-                            <select
-                                className="py-1 rounded-md"
-                                onChange={(e) => {
-                                    const target =
-                                        e.target as HTMLSelectElement;
-                                    setCountryId(target.value);
-                                }}
-                            >
-                                <option value={countryId}></option>
-                                {countries &&
-                                    countriesArray.map((country) => (
-                                        <option
-                                            key={country.id}
-                                            value={country.id}
-                                        >
-                                            {country.name}
-                                        </option>
-                                    ))}
-                            </select>
-                        </form>
-                    </ListElement>
-                ))}
+            <List
+                data={citiesArray}
+                deleteFunction={handleDeleteCity}
+                page="cities"
+            />
         </>
     );
 };
