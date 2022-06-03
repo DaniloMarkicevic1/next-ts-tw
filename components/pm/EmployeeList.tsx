@@ -14,7 +14,7 @@ const EmployeeList: React.FC<Props> = ({ employees }) => {
                 <Card key={`${employee.id}`} employeeId={employee.id}>
                     <CardItem
                         text={`${employee.firstName} ${employee.lastName}`}
-                        label="Name"
+                        label="Name:"
                     />
                     <div className="bg-gray-900 w-0.5 h-10"></div>
                     <CardItem text={employee.email} label="E-mail:" />

@@ -38,7 +38,7 @@ export const ContextProvider: React.FC<{ children: ReactNode }> = ({
     children,
 }) => {
     // axiosInstance.patch(`/user/role`, {
-    //     role: 'admin',
+    //     role: 'project_manager',
     // });
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [employeeModalOpen, setEmployeeModalOpen] = useState<boolean>(false);

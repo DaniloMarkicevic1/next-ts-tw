@@ -1,7 +1,7 @@
-import { XIcon } from "@heroicons/react/outline";
-import { KeyedMutator } from "swr";
-import { Employee } from "../../../models/Employees";
-import axiosInstance from "../../../services/axiosInstance";
+import { XIcon } from '@heroicons/react/outline';
+import { KeyedMutator } from 'swr';
+import { Employee } from '../../../models/Employees';
+import axiosInstance from '../../../services/axiosInstance';
 
 interface UserInterface {
     user: Employee;
@@ -37,29 +37,29 @@ const User: React.FC<UserInterface> = ({ user, mutate, isValidating }) => {
 
             <div>
                 <p>
-                    Project:{" "}
+                    Project:{' '}
                     {user.pm_project
                         ? user.pm_project?.name
                         : user.project?.name}
                 </p>
                 <p>
-                    Project Manager:{" "}
-                    {user.role === "project_manager" && (
+                    Project Manager:{' '}
+                    {user.role === 'project_manager' && (
                         <>
-                            {user.pm_project?.projectManager.firstName}{" "}
+                            {user.pm_project?.projectManager.firstName}{' '}
                             {user.pm_project?.projectManager.lastName}
                         </>
                     )}
-                    {user.role !== "project_manager" && (
+                    {user.role !== 'project_manager' && (
                         <>
-                            {user.project?.projectManager?.firstName}{" "}
+                            {user.project?.projectManager?.firstName}{' '}
                             {user.project?.projectManager?.lastName}
                         </>
                     )}
                 </p>
             </div>
             <div className="flex col-span-full">
-                Technologies:{" "}
+                Technologies:&nbsp;
                 <div>
                     {user.technologies.map((tech) => {
                         return (
@@ -67,7 +67,7 @@ const User: React.FC<UserInterface> = ({ user, mutate, isValidating }) => {
                                 key={tech.id}
                                 className="flex flex-rowitems-center float-left"
                             >
-                                <p>{tech.name}</p>
+                                <p> {tech.name}</p>
                                 <button
                                     className="bg-white ml-1 rounded-full hover:bg-opacity-75"
                                     onClick={() => removeTech(user.id, tech.id)}

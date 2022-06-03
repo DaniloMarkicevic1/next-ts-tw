@@ -14,7 +14,7 @@ import PmFilters from './PmFilters';
 const Employees: React.FC<EmployeesRes> = ({ employeesRes }) => {
     const [showFilters, setShowFilters] = useState(false);
 
-    // if (!employeesRes) return <Spinner />;
+    if (!employeesRes) return <Spinner />;
     return (
         <>
             <p className="text-center font-bold text-3xl">Employees</p>
