@@ -10,7 +10,6 @@ const SidebarRow: React.FC<SidebarRow> = ({
 }) => {
     const { sideBarIndex, setSideBarIndex } = useContextHook();
 
-    console.log(sideBarIndex);
     return (
         <li
             className={`
