@@ -4,7 +4,7 @@ import Layout from '../components/layout/Layout';
 import { ContextProvider } from '../context/context';
 import { FilterContextProvider } from '../context/filter-context';
 
-function MyApp({ Component, pageProps: { session, pageProps } }: AppProps) {
+function MyApp({ Component, pageProps: { pageProps } }: AppProps) {
     return (
         <ContextProvider>
             <FilterContextProvider>

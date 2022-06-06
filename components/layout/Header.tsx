@@ -1,4 +1,5 @@
 import { LogoutIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
+import { removeCookies } from 'cookies-next';
 import Image from 'next/image';
 import Router, { useRouter } from 'next/router';
 import { Dispatch, SetStateAction } from 'react';
@@ -16,7 +17,7 @@ const Navbar: React.FC<Props> = ({ setOpen, open }) => {
     const router = useRouter();
     const handleLogout = async () => {
         const res = await axiosInstance.post(`/logout`);
-        window.localStorage.removeItem('token');
+        removeCookies('token');
         setIsLoggedIn(false);
 
         res.status === 201 && router.push('/');
@@ -26,9 +27,20 @@ const Navbar: React.FC<Props> = ({ setOpen, open }) => {
             lastName: '',
             email: '',
             googleId: '',
-            role: '',
+            role: 'employee',
             seniority: '',
             plan: '',
+            city: {
+                id: 0,
+                name: '',
+                country: {
+                    id: 0,
+                    name: '',
+                },
+            },
+            technologies: [{ id: 0, name: '' }],
+            project: { name: '' },
+            pm_project: { name: '' },
         });
     };
 

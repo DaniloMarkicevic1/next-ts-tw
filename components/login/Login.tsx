@@ -1,12 +1,14 @@
+import { removeCookies, setCookies } from 'cookies-next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import GoogleLogin from 'react-google-login';
 import { useContextHook } from '../../context/context';
 import LogoImage from '../../public/assets/images/LogoImage.png';
 import axiosInstance from '../../services/axiosInstance';
-
+import Employee from '../employee/Employee';
+setCookies;
 const Login = () => {
-    const { user, setIsLoggedIn, isLoggedIn } = useContextHook();
+    const { setIsLoggedIn, isLoggedIn } = useContextHook();
 
     const router = useRouter();
 
@@ -18,6 +20,7 @@ const Login = () => {
             },
             { withCredentials: true }
         );
+        setCookies('token', res.data.token);
         if (res.status === 200) {
             setIsLoggedIn(true);
         }
@@ -25,7 +28,7 @@ const Login = () => {
 
     const handleLogout = async () => {
         const res = await axiosInstance.post(`/logout`);
-        window.localStorage.removeItem('token');
+        removeCookies('token');
         router.push('/');
         setIsLoggedIn(false);
     };
@@ -48,7 +51,7 @@ const Login = () => {
                 </>
             ) : (
                 <>
-                    <p className="text-5xl">Welcome {user.firstName}</p>
+                    <Employee />
                     <button
                         onClick={() => handleLogout()}
                         className="bg-gray-800 text-white rounded-md w-1/2 py-2 mt-5 hover:bg-opacity-75"

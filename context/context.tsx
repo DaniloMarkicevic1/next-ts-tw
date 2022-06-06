@@ -7,6 +7,7 @@ import {
     useState,
 } from 'react';
 import { ContextInferface } from '../models/Context';
+import { User } from '../models/User';
 import axiosInstance from '../services/axiosInstance';
 
 const defaultValue = {
@@ -30,6 +31,17 @@ const defaultValue = {
         role: '',
         seniority: '',
         plan: '',
+        city: {
+            id: 0,
+            name: '',
+            country: {
+                id: 0,
+                name: '',
+            },
+        },
+        technologies: [{ id: 0, name: '' }],
+        project: { name: '' },
+        pm_project: { name: '' },
     },
 };
 
@@ -38,9 +50,9 @@ const Context = createContext<ContextInferface>(defaultValue);
 export const ContextProvider: React.FC<{ children: ReactNode }> = ({
     children,
 }) => {
-    axiosInstance.patch(`/user/role`, {
-        role: 'admin',
-    });
+    // axiosInstance.patch(`/user/role`, {
+    //     role: 'admin',
+    // });
     const router = useRouter();
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -49,7 +61,7 @@ export const ContextProvider: React.FC<{ children: ReactNode }> = ({
     const [modalDataIsLoaded, setModalDataIsLoaded] = useState<boolean>(false);
     const [sideBarIndex, setSideBarIndex] = useState(0);
 
-    const [user, setUser] = useState({
+    const [user, setUser] = useState<User>({
         id: 0,
         firstName: '',
         lastName: '',
@@ -58,6 +70,17 @@ export const ContextProvider: React.FC<{ children: ReactNode }> = ({
         role: 'employee',
         seniority: '',
         plan: '',
+        city: {
+            id: 0,
+            name: '',
+            country: {
+                id: 0,
+                name: '',
+            },
+        },
+        technologies: [{ id: 0, name: '' }],
+        project: { name: '' },
+        pm_project: { name: '' },
     });
     const getUser = async () => {
         const res = await axiosInstance.get('/user');
@@ -70,9 +93,7 @@ export const ContextProvider: React.FC<{ children: ReactNode }> = ({
     }, []);
 
     useEffect(() => {
-        if (localStorage.getItem('token')) {
-            getUser();
-        }
+        getUser();
     }, [isLoggedIn]);
 
     return (

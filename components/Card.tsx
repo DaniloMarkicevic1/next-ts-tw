@@ -24,7 +24,6 @@ const Card: React.FC<Props> = ({ children, employeeId }) => {
             ${!modalDataIsLoaded && 'z-40 duration-300'}
             ${modalDataIsLoaded && 'z-20 duration-300'}
             flex
-            
             space-x-2 
             py-6
             pl-3 

@@ -1,6 +1,7 @@
-import { NextPage } from "next";
-import Head from "next/head";
-import EditProject from "../../../../components/admin/EditProject";
+import { GetServerSideProps, NextPage } from 'next';
+import Head from 'next/head';
+import EditProject from '../../../../components/admin/EditProject';
+import axiosInstance from '../../../../services/axiosInstance';
 
 const EditProjectPage: NextPage = () => {
     return (
@@ -14,6 +15,26 @@ const EditProjectPage: NextPage = () => {
             <EditProject />
         </>
     );
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const token = context.req.cookies.accessToken;
+
+    const res = await axiosInstance.get(`/user`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+
+    const role = res.data.user.role;
+
+    return {
+        props: { role: role },
+        redirect: {
+            destination: `${role !== 'admin' ? '/404' : ''}`,
+            permanent: true,
+        },
+    };
 };
 
 export default EditProjectPage;

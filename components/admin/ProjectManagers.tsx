@@ -14,8 +14,8 @@ import Spinner from '../layout/Spinner';
 import PageTitle from '../PageTitle';
 import UsersList from './UsersList';
 
-const ProjectManagers = () => {
-    const { data, mutate } = useSWR(`/users/pm`, fetcher);
+const ProjectManagers: React.FC = () => {
+    const { data } = useSWR(`/users/pm`, fetcher);
     if (!data) return <Spinner />;
 
     const projectManagers: Employee[] = data.project_managers;
