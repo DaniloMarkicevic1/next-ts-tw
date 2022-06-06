@@ -58,12 +58,18 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     const role = res.data.user.role;
 
-    return {
-        props: { role: role },
-        redirect: {
-            destination: `${role !== 'project_manager' ? '/404' : ''}`,
-            permanent: true,
-        },
-    };
+    if (role !== 'project_manager') {
+        return {
+            props: { role: role },
+            redirect: {
+                destination: '/404',
+                permanent: true,
+            },
+        };
+    } else {
+        return {
+            props: { role: role },
+        };
+    }
 };
 export default MyEmployeesPage;

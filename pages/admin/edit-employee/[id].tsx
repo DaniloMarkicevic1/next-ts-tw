@@ -15,14 +15,19 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     });
 
     const role = res.data.user.role;
-
-    return {
-        props: { role: role },
-        redirect: {
-            destination: `${role !== 'admin' ? '/404' : ''}`,
-            permanent: true,
-        },
-    };
+    if (role !== 'admin') {
+        return {
+            props: { role: role },
+            redirect: {
+                destination: '/404',
+                permanent: true,
+            },
+        };
+    } else {
+        return {
+            props: { role: role },
+        };
+    }
 };
 
 export default AdminEditEmployee;
